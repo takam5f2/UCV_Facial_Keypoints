@@ -48,7 +48,7 @@ class Net(nn.Module):
         # stride = 1, same padding, dilation =1
         self.conv5 = nn.Conv2d(8, 16, 3, stride=1, padding=1, dilation=1)
         self.batch_norm5 = nn.BatchNorm2d(16)
-        # 6th layer convolution network; input (8, 56, 56), output: (8, 56, 56)
+        # 6th layer convolution network; input (16, 56, 56), output: (16, 56, 56)
         # stride = 1, same padding, dilation =1
         self.conv6 = nn.Conv2d(16, 16, 3, stride=1, padding=1, dilation=1)
         self.batch_norm6 = nn.BatchNorm2d(16)
@@ -66,22 +66,22 @@ class Net(nn.Module):
         # max pooling layer output: (32, 28, 28)
         self.pooling4 = nn.MaxPool2d(2)
         
-        # 9th layer convolution network; input (16, 28, 28), output: (32, 28, 28)
+        # 9th layer convolution network; input (32, 28, 28), output: (64, 28, 28)
         # stride = 1, same padding, dilation =1
         self.conv9 = nn.Conv2d(32, 64, 3, stride=1, padding=1, dilation=1)
         self.batch_norm9 = nn.BatchNorm2d(64)
-        # 10th layer convolution network; input (32, 28, 28), output: (32, 28, 28)
+        # 10th layer convolution network; input (64, 28, 28), output: (64, 28, 28)
         # stride = 1, same padding, dilation =1
         self.conv10 = nn.Conv2d(64, 64, 3, stride=1, padding=1, dilation=1)
         self.batch_norm10 = nn.BatchNorm2d(64)
-        # 11th layer convolution network; input (32, 28, 28), output: (32, 28, 28)
+        # 11th layer convolution network; input (64, 28, 28), output: (64, 28, 28)
         # stride = 1, same padding, dilation =1
         self.conv11 = nn.Conv2d(64, 64, 3, stride=1, padding=1, dilation=1)
         self.batch_norm11 = nn.BatchNorm2d(64)
         # max pooling layer output: (64, 14, 14)
         self.pooling5 = nn.MaxPool2d(2)
 
-        # 12th layer convolution network; input (128, 14, 14), output: (128, 14, 14)
+        # 12th layer convolution network; input (64, 14, 14), output: (128, 14, 14)
         # stride = 1, same padding, dilation =1
         self.conv12 = nn.Conv2d(64, 128, 3, stride=1, padding=1, dilation=1)
         self.batch_norm12 = nn.BatchNorm2d(128)
@@ -96,18 +96,18 @@ class Net(nn.Module):
         # max pooling layer output: (128, 7, 7)
         self.pooling6 = nn.MaxPool2d(2)
         
-        # 15th layer convolution network; input (128, 7, 7), output: (28, 7, 7)
+        # 15th layer convolution network; input (128, 7, 7), output: (128, 7, 7)
         # stride = 1, same padding, dilation =1
-        self.conv15 = nn.Conv2d(128, 256, 3, stride=1, padding=1, dilation=1)
+        self.conv15 = nn.Conv2d(128, 128, 3, stride=1, padding=1, dilation=1)
         
         # Fully Connected
-        self.fc1 = nn.Linear(2304, 1000)
+        self.fc1 = nn.Linear(1152, 1024)
         self.dropout1 = nn.Dropout(0.5)
         # Fully Connected
-        self.fc2 = nn.Linear(1000, 1000)
+        self.fc2 = nn.Linear(1024, 1024)
         self.dropout2 = nn.Dropout(0.5)
         # Fully Connected
-        self.fc3 = nn.Linear(1000, 136)
+        self.fc3 = nn.Linear(1024, 136)
 
     def forward(self, x):
         ## TODO: Define the feedforward behavior of this model
@@ -132,12 +132,12 @@ class Net(nn.Module):
         
         x = F.relu(self.batch_norm9(self.conv9(x)))
         x = F.relu(self.batch_norm10(self.conv10(x)))
-        x = F.relu(self.batch_norm11(self.conv11(x)))
+        #x = F.relu(self.batch_norm11(self.conv11(x)))
         x = self.pooling5(x)
 
         x = F.relu(self.batch_norm12(self.conv12(x)))
         x = F.relu(self.batch_norm13(self.conv13(x)))
-        x = F.relu(self.batch_norm14(self.conv14(x)))
+        #x = F.relu(self.batch_norm14(self.conv14(x)))
         x = self.pooling6(x)
 
         x = F.relu(self.conv15(x))
