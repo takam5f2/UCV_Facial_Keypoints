@@ -132,12 +132,12 @@ class Net(nn.Module):
         
         x = F.relu(self.batch_norm9(self.conv9(x)))
         x = F.relu(self.batch_norm10(self.conv10(x)))
-        #x = F.relu(self.batch_norm11(self.conv11(x)))
+        x = F.relu(self.batch_norm11(self.conv11(x)))
         x = self.pooling5(x)
 
         x = F.relu(self.batch_norm12(self.conv12(x)))
         x = F.relu(self.batch_norm13(self.conv13(x)))
-        #x = F.relu(self.batch_norm14(self.conv14(x)))
+        x = F.relu(self.batch_norm14(self.conv14(x)))
         x = self.pooling6(x)
 
         x = F.relu(self.conv15(x))
